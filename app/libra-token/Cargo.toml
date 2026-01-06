@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "programs/libra",
+]
+
+[profile.release]
+lto = "fat"
+opt-level = "s"

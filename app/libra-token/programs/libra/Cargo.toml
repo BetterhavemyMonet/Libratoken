@@ -1,0 +1,10 @@
+[package]
+name = "libra"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+anchor-lang = { version = "0.27.0", features = ["init-if-needed"] }

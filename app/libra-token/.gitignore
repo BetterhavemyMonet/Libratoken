@@ -1,0 +1,21 @@
+# Rust/cargo
+target/
+**/target/
+**/Cargo.lock
+
+# Anchor build artifacts
+Anchor.toml.lock
+idl/
+scripts/*.keypair
+
+# Node
+node_modules/
+npm-debug.log
+yarn.lock
+package-lock.json
+
+# vscode
+.vscode/
+
+# macos
+.DS_Store
