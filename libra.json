@@ -1,0 +1,22 @@
+{
+  "name": "Libra",
+  "symbol": "LIBRA",
+  "description": "The official Libra token on Solana.",
+  "image": "https://raw.githubusercontent.com/BetterhavemyMonet/Libra-token/main/libra.png",
+  "attributes": [
+    { "trait_type": "Project", "value": "Libra" }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "https://raw.githubusercontent.com/BetterhavemyMonet/Libra-token/main/libra.png",
+        "type": "image/png"
+      },
+      {
+        "uri": "https://raw.githubusercontent.com/BetterhavemyMonet/Libra-token/main/libra-alt.png",
+        "type": "image/png"
+      }
+    ],
+    "category": "image"
+  }
+}

@@ -1,0 +1,283 @@
+From 24994159ed00a22067cea7fdc656d97bc4fa0185 Mon Sep 17 00:00:00 2001
+From: Test <test@example.com>
+Date: Tue, 23 Sep 2025 12:06:17 +0000
+Subject: [PATCH] Initial Libra Token scaffold
+
+---
+ .gitignore                | 21 +++++++++++++++++++++
+ Anchor.toml               |  9 +++++++++
+ Cargo.toml                |  8 ++++++++
+ LICENSE                   | 18 ++++++++++++++++++
+ README.md                 | 31 +++++++++++++++++++++++++++++++
+ migrations/0_deploy.ts    |  6 ++++++
+ package.json              | 14 ++++++++++++++
+ programs/libra/Cargo.toml | 10 ++++++++++
+ programs/libra/src/lib.rs | 20 ++++++++++++++++++++
+ scripts/deploy.sh         | 10 ++++++++++
+ tests/libra.test.ts       | 17 +++++++++++++++++
+ tsconfig.json             | 11 +++++++++++
+ 12 files changed, 175 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 Anchor.toml
+ create mode 100644 Cargo.toml
+ create mode 100644 LICENSE
+ create mode 100644 README.md
+ create mode 100644 migrations/0_deploy.ts
+ create mode 100644 package.json
+ create mode 100644 programs/libra/Cargo.toml
+ create mode 100644 programs/libra/src/lib.rs
+ create mode 100755 scripts/deploy.sh
+ create mode 100644 tests/libra.test.ts
+ create mode 100644 tsconfig.json
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..c1bbc07
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,21 @@
++# Rust/cargo
++target/
++**/target/
++**/Cargo.lock
++
++# Anchor build artifacts
++Anchor.toml.lock
++idl/
++scripts/*.keypair
++
++# Node
++node_modules/
++npm-debug.log
++yarn.lock
++package-lock.json
++
++# vscode
++.vscode/
++
++# macos
++.DS_Store
+diff --git a/Anchor.toml b/Anchor.toml
+new file mode 100644
+index 0000000..c486684
+--- /dev/null
++++ b/Anchor.toml
+@@ -0,0 +1,9 @@
++[programs.localnet]
++libra = "YourProgramIDHere1111111111111111111111111111111"
++
++[provider]
++cluster = "localnet"
++wallet = "~/.config/solana/id.json"
++
++[scripts]
++deploy = "scripts/deploy.sh"
+diff --git a/Cargo.toml b/Cargo.toml
+new file mode 100644
+index 0000000..9c0a742
+--- /dev/null
++++ b/Cargo.toml
+@@ -0,0 +1,8 @@
++[workspace]
++members = [
++    "programs/libra",
++]
++
++[profile.release]
++lto = "fat"
++opt-level = "s"
+diff --git a/LICENSE b/LICENSE
+new file mode 100644
+index 0000000..56e028d
+--- /dev/null
++++ b/LICENSE
+@@ -0,0 +1,18 @@
++MIT License
++
++Copyright (c) 2025
++
++Permission is hereby granted, free of charge, to any person obtaining a copy
++of this software and associated documentation files (the "Software"), to deal
++in the Software without restriction, including without limitation the rights
++to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++copies of the Software, and to permit persons to whom the Software is
++furnished to do so, subject to the following conditions:
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
++SOFTWARE.
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..bdee5e1
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1,31 @@
++# Libra Token (Solana - Anchor)
++
++Libra Token is a starter Solana program + SPL token scaffold using the Anchor framework.
++
++## Contents
++- `programs/libra/` — Anchor/Rust program
++- `scripts/deploy.sh` — build & deploy helper
++- `tests/` — basic TypeScript test using Anchor
++- `Anchor.toml`, `Cargo.toml` — Anchor & workspace config
++
++## Quick start (localnet)
++1. Install Anchor, Rust, Solana CLI, Node.js, and Yarn/NPM.
++2. Clone or unzip this repo.
++3. Install JS deps:
++   ```bash
++   cd libra-token
++   npm install
++   ```
++4. Build & deploy:
++   ```bash
++   anchor build
++   anchor deploy
++   ```
++5. Run tests:
++   ```bash
++   npm test
++   ```
++
++## Notes
++- Replace `YourProgramIDHere...` in `programs/libra/src/lib.rs` and `Anchor.toml` with your real program ID after `anchor build`/`address` generation.
++- This scaffold is a starting point — add minting, metadata, and token logic as needed.
+diff --git a/migrations/0_deploy.ts b/migrations/0_deploy.ts
+new file mode 100644
+index 0000000..95f1ba2
+--- /dev/null
++++ b/migrations/0_deploy.ts
+@@ -0,0 +1,6 @@
++// placeholder migration script for Anchor migrations (optional)
++import * as anchor from "@coral-xyz/anchor";
++
++module.exports = async function (provider: any) {
++  // migrations can be scripted here
++};
+diff --git a/package.json b/package.json
+new file mode 100644
+index 0000000..ff7e132
+--- /dev/null
++++ b/package.json
+@@ -0,0 +1,14 @@
++{
++  "name": "libra-token",
++  "version": "0.1.0",
++  "scripts": {
++    "test": "mocha -r ts-node/register tests/**/*.test.ts --exit"
++  },
++  "devDependencies": {
++    "@coral-xyz/anchor": "^0.27.0",
++    "chai": "^4.3.7",
++    "mocha": "^10.2.0",
++    "ts-node": "^10.9.1",
++    "typescript": "^5.5.2"
++  }
++}
+\ No newline at end of file
+diff --git a/programs/libra/Cargo.toml b/programs/libra/Cargo.toml
+new file mode 100644
+index 0000000..8ef2471
+--- /dev/null
++++ b/programs/libra/Cargo.toml
+@@ -0,0 +1,10 @@
++[package]
++name = "libra"
++version = "0.1.0"
++edition = "2021"
++
++[lib]
++crate-type = ["cdylib", "rlib"]
++
++[dependencies]
++anchor-lang = { version = "0.27.0", features = ["init-if-needed"] }
+diff --git a/programs/libra/src/lib.rs b/programs/libra/src/lib.rs
+new file mode 100644
+index 0000000..c948078
+--- /dev/null
++++ b/programs/libra/src/lib.rs
+@@ -0,0 +1,20 @@
++use anchor_lang::prelude::*;
++
++declare_id!("YourProgramIDHere1111111111111111111111111111111");
++
++#[program]
++pub mod libra {
++    use super::*;
++
++    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
++        msg!("Libra Token program initialized!");
++        Ok(())
++    }
++}
++
++#[derive(Accounts)]
++pub struct Initialize<'info> {
++    #[account(mut)]
++    pub payer: Signer<'info>,
++    pub system_program: Program<'info, System>,
++}
+diff --git a/scripts/deploy.sh b/scripts/deploy.sh
+new file mode 100755
+index 0000000..b559b89
+--- /dev/null
++++ b/scripts/deploy.sh
+@@ -0,0 +1,10 @@
++#!/bin/bash
++set -e
++
++echo "🚀 Building Libra Token program..."
++anchor build
++
++echo "📡 Deploying Libra Token program..."
++anchor deploy
++
++echo "✅ Deployment finished!"
+diff --git a/tests/libra.test.ts b/tests/libra.test.ts
+new file mode 100644
+index 0000000..2eb0c0e
+--- /dev/null
++++ b/tests/libra.test.ts
+@@ -0,0 +1,17 @@
++import * as anchor from "@coral-xyz/anchor";
++import { Program } from "@coral-xyz/anchor";
++import { Libra } from "../target/types/libra";
++import { expect } from "chai";
++
++describe("libra", () => {
++  const provider = anchor.AnchorProvider.local();
++  anchor.setProvider(provider);
++
++  const program = anchor.workspace.Libra as Program<Libra>;
++
++  it("Initializes Libra token program!", async () => {
++    const tx = await program.methods.initialize().rpc();
++    console.log("Transaction signature", tx);
++    expect(tx).to.be.a("string");
++  });
++});
+diff --git a/tsconfig.json b/tsconfig.json
+new file mode 100644
+index 0000000..ff895e7
+--- /dev/null
++++ b/tsconfig.json
+@@ -0,0 +1,11 @@
++{
++  "compilerOptions": {
++    "target": "ES2019",
++    "module": "commonjs",
++    "strict": true,
++    "esModuleInterop": true,
++    "skipLibCheck": true,
++    "outDir": "build"
++  },
++  "include": ["tests/**/*", "scripts/**/*"]
++}
+-- 
+2.39.2
+
