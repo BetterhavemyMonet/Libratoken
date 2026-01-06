@@ -1,0 +1,23 @@
+{
+  "name": "Libra",
+  "symbol": "LIBRA",
+  "description": "Libra Token — official SPL token on the Solana blockchain.",
+  "seller_fee_basis_points": 0,
+  "image": "https://raw.githubusercontent.com/BetterhavemyMonet/Libratoken/main/assets/branding/libra-logo.png",
+  "attributes": [],
+  "properties": {
+    "files": [
+      {
+        "uri": "https://raw.githubusercontent.com/BetterhavemyMonet/Libratoken/main/assets/branding/libra-logo.png",
+        "type": "image/png"
+      }
+    ],
+    "category": "image",
+    "creators": [
+      {
+        "address": "BYqHJvvtJSgXQi9iuL6PcXmVNADqBDxNGkyAhY8zwTWR",
+        "share": 100
+      }
+    ]
+  }
+}
