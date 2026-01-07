@@ -47,7 +47,7 @@ document.getElementById('airdrop-btn').onclick = () => {
 
   log.textContent = `⏳ Running airdrop for ${wallet}...\n`;
 
-  fetch(`run_airdrop.php?wallet=${wallet}`)
+  fetch(`scripts/run_airdrop.php?wallet=${wallet}`)
     .then(resp => resp.text())
     .then(output => log.textContent += output)
     .catch(err => log.textContent += `\n❌ Error: ${err}`);

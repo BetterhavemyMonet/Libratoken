@@ -1,15 +1,23 @@
-#!/bin/bash
-set -e
+#!/data/data/com.termux/files/usr/bin/bash
 
-DRY_RUN=true
-TOTAL=100000
+WALLET="$1"
+DRY_RUN=true   # Set false for real airdrop
 
-echo "🧪 Libra Airdrop Script"
-echo "Dry run: $DRY_RUN"
-echo "Total tokens: $TOTAL"
+CLAIM_FILE="scripts/claimed.txt"
+mkdir -p scripts
+touch "$CLAIM_FILE"
+
+if grep -qx "$WALLET" "$CLAIM_FILE"; then
+    echo "❌ Wallet $WALLET has already claimed the airdrop."
+    exit 0
+fi
 
 if [ "$DRY_RUN" = true ]; then
-  echo "✅ Dry run successful – no tokens sent."
+    echo "🧪 Dry run: 100,000 tokens would be sent to $WALLET."
 else
-  echo "🚀 Live airdrop would execute here."
+    echo "Sending 100,000 tokens to $WALLET..."
+    # Place your real Solana transfer command here
 fi
+
+echo "$WALLET" >> "$CLAIM_FILE"
+echo "✅ Wallet $WALLET marked as claimed."
