@@ -7,18 +7,20 @@
 <style>
 body {
   font-family: Arial,sans-serif;
-  /* Updated background to match Libra logo colors */
-  background: linear-gradient(135deg, #8e24aa, #4a148c);
-  color:white;
-  text-align:center;
-  padding:2rem;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+
+  /* Exact logo as background */
+  background: url('libra-logo.png') no-repeat center center fixed;
+  background-size: cover;
   position: relative;
 }
-body::before {
+body::after {
   content: '';
   position: fixed;
   top:0; left:0; right:0; bottom:0;
-  background: radial-gradient(circle at center, rgba(186,104,200,0.3), rgba(74,20,140,0.8));
+  background: rgba(0,0,0,0.35); /* overlay for text readability */
   z-index: -1;
 }
 img { max-width:200px; margin-bottom:1rem;}
