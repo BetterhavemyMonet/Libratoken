@@ -21,27 +21,38 @@ pre { text-align:left; background:rgba(0,0,0,0.25); padding:1rem; border-radius:
 <h1>Libra Token</h1>
 <div class="card" id="token-info">Loading token info...</div>
 <input type="text" id="wallet" placeholder="Enter your Solana wallet address" /><br/>
-<button id="airdrop-btn">Run Dry Airdrop</button>
+<button id="airdrop-btn">Run Airdrop</button>
 <pre id="airdrop-log"></pre>
+
 <script>
+// Load token data dynamically
 fetch('token.json')
   .then(r => r.json())
   .then(d => {
-    document.getElementById('token-info').innerHTML = \`
-      <p><strong>\${d.name} (\${d.symbol})</strong></p>
-      <p>Mint Address: <code>\${d.mintAddress}</code></p>
-      <p>Decimals: \${d.decimals}</p>
-      <p>Total Supply: \${d.totalSupply}</p>
-      <p style="margin-top:1rem;">Airdrop-ready (dry run)</p>
-    \`;
+    document.getElementById('token-info').innerHTML = `
+      <p><strong>${d.name} (${d.symbol})</strong></p>
+      <p>Mint Address: <code>${d.mintAddress}</code></p>
+      <p>Decimals: ${d.decimals}</p>
+      <p>Total Supply: ${d.totalSupply}</p>
+      <p style="margin-top:1rem;">Airdrop-ready</p>
+    `;
   })
   .catch(e => console.error('Failed to load token data', e));
+
+// Run airdrop via Termux
 document.getElementById('airdrop-btn').onclick = () => {
-  const w = document.getElementById('wallet').value.trim();
+  const wallet = document.getElementById('wallet').value.trim();
   const log = document.getElementById('airdrop-log');
-  if(!w){ log.textContent = "⚠️ Please enter a wallet address!"; return; }
-  log.textContent = \`🧪 Dry run: 100,000 tokens ready for airdrop to \${w}\nNo tokens sent.\`;
+  if(!wallet){ log.textContent="⚠️ Enter a wallet address!"; return; }
+
+  log.textContent = `⏳ Running airdrop for ${wallet}...\n`;
+
+  fetch(`run_airdrop.php?wallet=${wallet}`)
+    .then(resp => resp.text())
+    .then(output => log.textContent += output)
+    .catch(err => log.textContent += `\n❌ Error: ${err}`);
 };
 </script>
+
 </body>
 </html>
