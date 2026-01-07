@@ -16,7 +16,7 @@ if [ "$DRY_RUN" = true ]; then
     echo "🧪 Dry run: 100,000 tokens would be sent to $WALLET."
 else
     echo "Sending 100,000 tokens to $WALLET..."
-    # Place your real Solana transfer command here
+    # Insert your real Solana transfer command here
 fi
 
 echo "$WALLET" >> "$CLAIM_FILE"
