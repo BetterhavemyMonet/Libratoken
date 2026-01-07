@@ -10,15 +10,9 @@ body {
   color: white;
   text-align: center;
   padding: 2rem;
-  background: url('libra-bg.png') no-repeat center center fixed;
+  background: url("libra-bg.png") no-repeat center center fixed;
   background-size: cover;
   position: relative;
-}
-body::before {
-  content:'';
-  position: fixed; top:0; left:0; right:0; bottom:0;
-  background: rgba(0,0,0,0.25);
-  z-index: -1;
 }
 img { max-width: 200px; margin-bottom: 1rem; }
 .card { background: rgba(0,0,0,0.35); padding: 1.5rem; border-radius: 12px; max-width: 500px; margin:auto; }
@@ -27,6 +21,14 @@ input { width: 250px; }
 button { background:#9c27b0; color:white; cursor:pointer; }
 button:hover { background:#7b1fa2; }
 pre { text-align:left; background:rgba(0,0,0,0.25); padding:1rem; border-radius:8px; max-width:500px; margin:auto; overflow-x:auto; }
+
+#stars{
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  z-index:-1;
+  pointer-events:none;
+}
 </style>
 </head>
 <body>
@@ -36,25 +38,56 @@ pre { text-align:left; background:rgba(0,0,0,0.25); padding:1rem; border-radius:
 <input type="text" id="wallet" placeholder="Enter your Solana wallet address"><br>
 <button id="airdrop-btn">Run Airdrop</button>
 <pre id="airdrop-log"></pre>
+
+<canvas id="stars"></canvas>
 <script>
+// Animated stars
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+window.addEventListener('resize', resize);
+resize();
+
+const stars = Array.from({length:200}, ()=>({
+  x: Math.random()*canvas.width,
+  y: Math.random()*canvas.height,
+  r: Math.random()*1.5,
+  dx: (Math.random()-0.5)/2,
+  dy: (Math.random()-0.5)/2
+}));
+
+function drawStars(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  stars.forEach(s=>{
+    s.x += s.dx; s.y += s.dy;
+    if(s.x<0)s.x=canvas.width; if(s.x>canvas.width)s.x=0;
+    if(s.y<0)s.y=canvas.height; if(s.y>canvas.height)s.y=0;
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,2*Math.PI);
+    ctx.fillStyle='rgba(255,255,255,0.8)';
+    ctx.fill();
+  });
+  requestAnimationFrame(drawStars);
+}
+drawStars();
+
+// token info and dry-run airdrop
 fetch('token.json')
   .then(r=>r.json())
   .then(d=>{
-    document.getElementById('token-info').innerHTML=\`
-      <p><strong>\${d.name} (\${d.symbol})</strong></p>
-      <p>Mint Address: <code>\${d.mintAddress}</code></p>
-      <p>Decimals: \${d.decimals}</p>
-      <p>Total Supply: \${d.totalSupply}</p>
+    document.getElementById('token-info').innerHTML=`
+      <p><strong>${d.name} (${d.symbol})</strong></p>
+      <p>Mint Address: <code>${d.mintAddress}</code></p>
+      <p>Decimals: ${d.decimals}</p>
+      <p>Total Supply: ${d.totalSupply}</p>
       <p style="margin-top:1rem;">Dry-run only: airdrop disabled on GitHub Pages</p>
-    \`;
+    `;
   });
-
-// Replace real airdrop with dry-run message
 document.getElementById('airdrop-btn').onclick = ()=>{
   const wallet = document.getElementById('wallet').value.trim();
   const log = document.getElementById('airdrop-log');
-  if(!wallet){ log.textContent="⚠️ Enter a wallet address!"; return; }
-  log.textContent = `ℹ️ GitHub Pages cannot run live airdrops.\nDry-run: 100,000 tokens would be sent to ${wallet}.`;
+  if(!wallet){ log.textContent="Enter a wallet address!"; return; }
+  log.textContent = "GitHub Pages cannot run live airdrops. Dry-run: 100,000 tokens would be sent to " + wallet + ".";
 };
 </script>
 </body>
