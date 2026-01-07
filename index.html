@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Libra Token</title>
+<style>
+/* Cosmic galaxy background */
+body {
+    margin: 0;
+    background: url('assets/branding/galaxy.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+}
+
+/* Dim overlay */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.3);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Main content panels */
+#token-info, #airdrop-btn, input {
+    position: relative;
+    z-index: 1;
+    background: rgba(0,0,0,0.5);
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px auto;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Glowing buttons */
+button {
+    background: linear-gradient(90deg, #8a2be2, #4b0082);
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    font-size: 1em;
+    border-radius: 8px;
+    box-shadow: 0 0 15px #8a2be2;
+    cursor: pointer;
+    transition: 0.3s;
+}
+button:hover {
+    box-shadow: 0 0 30px #ff69b4;
+    transform: scale(1.05);
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+<img src="assets/branding/libra-logo.png" alt="Libra Logo" style="display:block;margin:20px auto;max-width:150px;">
+<h1 style="text-align:center;">Libra Token</h1>
+<div class="card" id="token-info">Loading token info...</div>
+<input type="text" id="wallet" placeholder="Enter your Solana wallet address"><br>
+<button id="airdrop-btn">Run Airdrop</button>
+<pre id="log"></pre>
+<script src="scripts/airdrop.js"></script>
+</body>
+</html>
