@@ -10,26 +10,23 @@ body {
   color: white;
   text-align: center;
   padding: 2rem;
-
-  /* Background gradient matching logo colors */
-  background: radial-gradient(circle at center, #b388ff 0%, #4a148c 100%);
+  background: url('libra-bg.png') no-repeat center center fixed;
+  background-size: cover;
   position: relative;
 }
 body::before {
   content:'';
-  position: fixed;
-  top:0; left:0; right:0; bottom:0;
-  background: radial-gradient(circle at center, rgba(186,104,200,0.25), rgba(74,20,140,0.5));
+  position: fixed; top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.25);
   z-index: -1;
 }
-img { max-width:200px; margin-bottom:1rem;}
-.card { background:rgba(0,0,0,0.35); padding:1.5rem; border-radius:12px; max-width:500px; margin:auto;}
-code { word-break: break-all;}
-input,button { margin-top:1rem; padding:0.5rem 1rem; font-size:1rem; border:none; border-radius:8px;}
-input { width:250px;}
-button { background:#9c27b0; color:white; cursor:pointer;}
-button:hover { background:#7b1fa2;}
-pre { text-align:left; background:rgba(0,0,0,0.25); padding:1rem; border-radius:8px; max-width:500px; margin:auto; overflow-x:auto;}
+img { max-width: 200px; margin-bottom: 1rem; }
+.card { background: rgba(0,0,0,0.35); padding: 1.5rem; border-radius: 12px; max-width: 500px; margin:auto; }
+input, button { margin-top: 1rem; padding: 0.5rem 1rem; font-size:1rem; border:none; border-radius:8px; }
+input { width: 250px; }
+button { background:#9c27b0; color:white; cursor:pointer; }
+button:hover { background:#7b1fa2; }
+pre { text-align:left; background:rgba(0,0,0,0.25); padding:1rem; border-radius:8px; max-width:500px; margin:auto; overflow-x:auto; }
 </style>
 </head>
 <body>
@@ -48,21 +45,16 @@ fetch('token.json')
       <p>Mint Address: <code>\${d.mintAddress}</code></p>
       <p>Decimals: \${d.decimals}</p>
       <p>Total Supply: \${d.totalSupply}</p>
-      <p style="margin-top:1rem;">Airdrop-ready</p>
+      <p style="margin-top:1rem;">Dry-run only: airdrop disabled on GitHub Pages</p>
     \`;
   });
 
+// Replace real airdrop with dry-run message
 document.getElementById('airdrop-btn').onclick = ()=>{
   const wallet = document.getElementById('wallet').value.trim();
   const log = document.getElementById('airdrop-log');
   if(!wallet){ log.textContent="⚠️ Enter a wallet address!"; return; }
-
-  log.textContent = `⏳ Running airdrop for ${wallet}...\n`;
-
-  fetch(`scripts/run_airdrop.php?wallet=${wallet}`)
-    .then(r=>r.text())
-    .then(out=>log.textContent+=out)
-    .catch(e=>log.textContent+=`\n❌ Error: ${e}`);
+  log.textContent = `ℹ️ GitHub Pages cannot run live airdrops.\nDry-run: 100,000 tokens would be sent to ${wallet}.`;
 };
 </script>
 </body>
