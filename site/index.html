@@ -12,41 +12,49 @@
       text-align: center;
       padding: 2rem;
     }
-    img {
-      max-width: 200px;
-      margin-bottom: 1rem;
-    }
-    .card {
-      background: rgba(0,0,0,0.35);
-      padding: 1.5rem;
-      border-radius: 12px;
-      max-width: 500px;
-      margin: auto;
-    }
-    code {
-      word-break: break-all;
-    }
+    img { max-width: 200px; margin-bottom: 1rem; }
+    .card { background: rgba(0,0,0,0.35); padding: 1.5rem; border-radius: 12px; max-width: 500px; margin: auto; }
+    code { word-break: break-all; }
+    button { margin-top:1rem; padding:0.5rem 1rem; font-size:1rem; border:none; border-radius:8px; background:#9c27b0; color:white; cursor:pointer; }
+    button:hover { background:#7b1fa2; }
+    pre { text-align:left; background:rgba(0,0,0,0.25); padding:1rem; border-radius:8px; max-width:500px; margin:auto; overflow-x:auto; }
   </style>
 </head>
 <body>
 
 <img src="../assets/branding/libra-logo.png" alt="Libra Logo" />
 
-<h1>Libra (LIBRA)</h1>
+<h1>Libra Token</h1>
 
-<div class="card">
-  <p><strong>Mint Address</strong></p>
-  <code>BYqHJvvtJSgXQi9iuL6PcXmVNADqBDxNGkyAhY8zwTWR</code>
-
-  <p><strong>Decimals</strong>: 9</p>
-  <p><strong>Total Airdrop Supply</strong>: 100000</p>
-
-  <p style="margin-top:1rem;">
-    ⚖️ SPL Token on Solana<br/>
-    🌱 Community-driven<br/>
-    🧪 Airdrop-ready (dry run enabled)
-  </p>
+<div class="card" id="token-info">
+  Loading token info...
 </div>
+
+<button id="airdrop-btn">Run Dry Airdrop</button>
+<pre id="airdrop-log"></pre>
+
+<script>
+fetch('token.json')
+  .then(response => response.json())
+  .then(data => {
+    const div = document.getElementById('token-info');
+    div.innerHTML = `
+      <p><strong>${data.name} (${data.symbol})</strong></p>
+      <p>Mint Address: <code>${data.mintAddress}</code></p>
+      <p>Decimals: ${data.decimals}</p>
+      <p>Total Supply: ${data.totalSupply}</p>
+      <p style="margin-top:1rem;">Airdrop-ready (dry run)</p>
+    `;
+  })
+  .catch(err => {
+    console.error('Failed to load token data', err);
+  });
+
+document.getElementById('airdrop-btn').onclick = () => {
+  const log = document.getElementById('airdrop-log');
+  log.textContent = '🧪 Dry run: 100,000 tokens ready for airdrop\nNo tokens sent.';
+};
+</script>
 
 </body>
 </html>
