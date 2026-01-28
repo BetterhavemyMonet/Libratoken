@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 WALLET="$1"
-DRY_RUN=true   # Set false for real airdrop
+DRY_RUN=false   # Set false for real airdrop
 CLAIM_FILE="scripts/claimed.txt"
 mkdir -p scripts
 touch "$CLAIM_FILE"
