@@ -1,42 +1,50 @@
-# Monet Ecosystem
+# 🚀 Monet Ecosystem
 
-The official token ecosystem built on Solana Mainnet.
+Welcome to the Monet Ecosystem — a dual-token framework built on Solana Mainnet, designed to empower community, engagement, and long-term utility.  
+
+Official airdrop registration launching soon at: [BetterhavemyMonet.com](https://BetterhavemyMonet.com)
 
 ---
 
 ## Libra Token ⚖️
 
-Libra ⚖️ represents balance, utility, and structured token economics within the Monet ecosystem. Designed for long-term sustainability and strategic distribution.
+**Symbol:** ⚖️  
+**Network:** Solana Mainnet  
+**Mint Address:** `BYqHJvvtJSgXQi9iuL6PcXmVNADqBDxNGkyAhY8zwTWR`  
+[View on Solscan](https://solscan.io/token/BYqHJvvtJSgXQi9iuL6PcXmVNADqBDxNGkyAhY8zwTWR)
 
-Network: Solana Mainnet
+**Description:**  
+Libra ⚖️ represents balance and structured token economics within the Monet ecosystem. Designed for sustainability and strategic distribution, it’s the backbone of ecosystem operations.
 
-Mint Address:
-`BYqHJvvtJSgXQi9iuL6PcXmVNADqBDxNGkyAhY8zwTWR`
+**Supply:** 5,000,000  
 
-Solscan:
-https://solscan.io/token/BYqHJvvtJSgXQi9iuL6PcXmVNADqBDxNGkyAhY8zwTWR
-
-Airdrop portal launching soon at:
-https://BetterhavemyMonet.com
-
----
-
-## Monet Money
-
-Monet Money is the community-driven distribution token powering engagement, rewards, and ecosystem expansion. Built for visibility, momentum, and participation.
-
-Network: Solana Mainnet
-
-Mint Address:
-`9CHAHvqDhPyiOgg4TKfvJ9iVp7dZaQqVao9uU7W7E5ZD`
-
-Solscan:
-https://solscan.io/token/9CHAHvqDhPyiOgg4TKfvJ9iVp7dZaQqVao9uU7W7E5ZD
-
-Airdrop registration coming soon:
-https://BetterhavemyMonet.com
+**Airdrop:** Registration portal launching soon at [BetterhavemyMonet.com](https://BetterhavemyMonet.com)
 
 ---
 
-Official distribution portal:
-BetterhavemyMonet.com (launching soon)
+## Monet Money 🪙
+
+**Symbol:** 🪙  
+**Network:** Solana Mainnet  
+**Mint Address:** `9CHAHvqDhPyiOgg4TKfvJ9iVp7dZaQqVao9uU7W7E5ZD`  
+[View on Solscan](https://solscan.io/token/9CHAHvqDhPyiOgg4TKfvJ9iVp7dZaQqVao9uU7W7E5ZD)
+
+**Description:**  
+Monet Money is the community-driven token powering engagement, rewards, and ecosystem expansion. Built for visibility, momentum, and participation.
+
+**Supply:** 100,000,000  
+
+**Airdrop:** Sign up coming soon at [BetterhavemyMonet.com](https://BetterhavemyMonet.com)
+
+---
+
+## Roadmap & Distribution Timeline
+
+- **Q1 2026:** Airdrop registration launch  
+- **Q2 2026:** Distribution of early tokens to community wallets  
+- **Q3 2026:** Feature integration for ecosystem participants  
+- **Q4 2026:** Expansion & strategic partnerships
+
+---
+
+Official Monet Ecosystem portal: [BetterhavemyMonet.com](https://BetterhavemyMonet.com)
