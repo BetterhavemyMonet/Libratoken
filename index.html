@@ -4,9 +4,6 @@
   <meta charset="UTF-8">
   <title>Monet Ecosystem - Airdrop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://unpkg.com/@solana/wallet-adapter-base@1.37.1/lib/index.iife.min.js"></script>
-  <script src="https://unpkg.com/@solana/wallet-adapter-wallets@1.37.1/lib/index.iife.min.js"></script>
-  <script src="https://unpkg.com/@solana/wallet-adapter-react-ui@1.37.1/lib/index.iife.min.js"></script>
   <style>
     body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #f0f2f5; }
     h1 { font-size: 3em; margin-bottom: 0; }
@@ -14,7 +11,6 @@
     input, button { padding: 10px; font-size: 1em; margin: 5px; }
     button { cursor: pointer; background: #4CAF50; color: white; border: none; border-radius: 5px; }
     button:hover { background: #45a049; }
-    #walletConnectBtn { margin-top: 20px; }
   </style>
 </head>
 <body>
@@ -27,8 +23,6 @@
     <button type="submit">Sign Up</button>
   </form>
 
-  <button id="walletConnectBtn">Connect Wallet</button>
-
   <p id="status"></p>
 
   <script>
@@ -38,20 +32,6 @@
       const wallet = document.getElementById('wallet').value;
       console.log("Wallet submitted:", wallet);
       document.getElementById('status').innerText = "✅ Wallet registered (mock)";
-    });
-
-    const walletConnectBtn = document.getElementById('walletConnectBtn');
-    walletConnectBtn.addEventListener('click', async () => {
-      if (window.solana) {
-        try {
-          const resp = await window.solana.connect();
-          document.getElementById('status').innerText = `✅ Connected: ${resp.publicKey.toString()}`;
-        } catch (err) {
-          document.getElementById('status').innerText = "❌ Connection failed";
-        }
-      } else {
-        alert("No Solana wallet found. Install Phantom or another compatible wallet.");
-      }
     });
   </script>
 </body>
