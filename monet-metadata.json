@@ -1,0 +1,16 @@
+{
+  "name": "Monet Money",
+  "symbol": "💵",
+  "description": "Monet Money is a community-driven Solana token designed to power the Monet ecosystem alongside Libra ⚖️.",
+  "image": "https://BetterhavemyMonet.com/Monetmoney.png",
+  "attributes": [
+    {"trait_type": "Network", "value": "Solana"},
+    {"trait_type": "Ecosystem", "value": "Monet"}
+  ],
+  "properties": {
+    "files": [
+      {"uri": "https://BetterhavemyMonet.com/Monetmoney.png", "type": "image/png"}
+    ],
+    "category": "image"
+  }
+}
