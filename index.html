@@ -1,38 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Monet Ecosystem - Airdrop</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #f0f2f5; }
-    h1 { font-size: 3em; margin-bottom: 0; }
-    p { font-size: 1.2em; }
-    input, button { padding: 10px; font-size: 1em; margin: 5px; }
-    button { cursor: pointer; background: #4CAF50; color: white; border: none; border-radius: 5px; }
-    button:hover { background: #45a049; }
-  </style>
+<meta charset="UTF-8" />
+<title>Libra ⚖️ + Monet Money 💵</title>
+<script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
+<style>
+body {
+  background:#0f0f1a;
+  color:white;
+  font-family:Arial, sans-serif;
+  text-align:center;
+  padding-top:80px;
+}
+img { width:140px; margin:10px; }
+button {
+  padding:12px 25px;
+  margin:10px;
+  border-radius:8px;
+  border:none;
+  font-size:16px;
+  cursor:pointer;
+}
+.connect { background:#512da8; color:white; }
+.check { background:#00c853; color:white; }
+.token-box {
+  margin-top:30px;
+  padding:15px;
+  border-radius:12px;
+  background:#1a1a2e;
+}
+</style>
 </head>
 <body>
-  <h1>Monet Ecosystem Airdrop</h1>
-  <p>Claim your Monet Money 🪙 and Libra ⚖️ tokens!</p>
 
-  <form id="airdropForm">
-    <input type="text" id="wallet" placeholder="Enter your Solana wallet" required>
-    <br>
-    <button type="submit">Sign Up</button>
-  </form>
+<img src="Monet.png" alt="Libra Logo" />
+<img src="Monetmoney.png" alt="Monet Money Logo" />
 
-  <p id="status"></p>
+<h1>Libra ⚖️ + Monet Money 💵</h1>
+<p>Connect wallet to view balances.</p>
 
-  <script>
-    const form = document.getElementById('airdropForm');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const wallet = document.getElementById('wallet').value;
-      console.log("Wallet submitted:", wallet);
-      document.getElementById('status').innerText = "✅ Wallet registered (mock)";
-    });
-  </script>
+<button class="connect" onclick="connectWallet()">Connect Wallet</button>
+<button class="check" onclick="checkBalances()">Check Balances</button>
+
+<p id="wallet"></p>
+
+<div class="token-box">
+  <p id="libraBalance">Libra Balance: --</p>
+  <p id="monetBalance">Monet Money Balance: --</p>
+</div>
+
+<script>
+let walletAddress = null;
+let publicKeyObj = null;
+
+const LIBRA_MINT = "BYqHJvvtJSgXQi9iuL6PcXmVNADqBDxNGkyAhY8zwTWR";
+const MONET_MINT = "9CHAHvqDhPyiOgg4TKfvJ9iVp7dZaQqVao9uU7W7E5ZD";
+
+const connection = new solanaWeb3.Connection(
+  solanaWeb3.clusterApiUrl("mainnet-beta")
+);
+
+async function connectWallet() {
+  if (window.solana && window.solana.isPhantom) {
+    try {
+      const resp = await window.solana.connect();
+      walletAddress = resp.publicKey.toString();
+      publicKeyObj = resp.publicKey;
+      document.getElementById("wallet").innerText =
+        "Connected: " + walletAddress;
+    } catch (err) {
+      alert("Connection failed.");
+    }
+  } else {
+    alert("Phantom Wallet not found.");
+  }
+}
+
+async function getTokenBalance(mint) {
+  const accounts = await connection.getParsedTokenAccountsByOwner(
+    publicKeyObj,
+    { mint: new solanaWeb3.PublicKey(mint) }
+  );
+
+  if (accounts.value.length === 0) return 0;
+
+  return accounts.value[0].account.data.parsed.info.tokenAmount.uiAmount;
+}
+
+async function checkBalances() {
+  if (!publicKeyObj) {
+    alert("Connect wallet first.");
+    return;
+  }
+
+  try {
+    const libra = await getTokenBalance(LIBRA_MINT);
+    const monet = await getTokenBalance(MONET_MINT);
+
+    document.getElementById("libraBalance").innerText =
+      "Libra Balance: " + libra + " ⚖️";
+
+    document.getElementById("monetBalance").innerText =
+      "Monet Money Balance: " + monet + " 💵";
+  } catch (err) {
+    alert("Error fetching balances.");
+  }
+}
+</script>
+
 </body>
 </html>
